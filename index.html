@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى مريومتي ❤️ | عيدية مريومتي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        :root {
+            --gold-light: #f6e6b4;
+            --gold-dark: #b8860b;
+            --accent-pink: #ff7eb9;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; background-color: #050507;
+            font-family: 'Tajawal', sans-serif; color: white;
+        }
+
+        #particles-js {
+            position: absolute; width: 100%; height: 100%; z-index: 1;
+            background: radial-gradient(circle at 30% 50%, rgba(80, 0, 150, 0.15), transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(0, 50, 150, 0.15), transparent 50%);
+        }
+
+        #heart-canvas { position: absolute; top: 0; left: 0; z-index: 2; cursor: pointer; }
+
+        .overlay-text {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3; text-align: center; pointer-events: none;
+        }
+        .gold-text {
+            display: block;
+            background: linear-gradient(to bottom, var(--gold-light) 20%, #d4af37 50%, var(--gold-dark) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        .i-love { font-size: 2rem; letter-spacing: 3px; }
+        .mariam { font-size: 5rem; margin-top: -10px; filter: drop-shadow(0 0 10px rgba(184, 134, 11, 0.5)); }
+
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(15px);
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+        .modal.open { display: flex; opacity: 1; }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px; padding: 30px; width: 90%; max-width: 500px;
+            max-height: 85vh; overflow-y: auto;
+            text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .typewriter-p { font-size: 1.1rem; line-height: 1.8; color: #ddd; margin-bottom: 20px; }
+        
+        .q-label { display: block; text-align: right; color: var(--gold-light); margin-top: 15px; font-size: 0.95rem; }
+        
+        input, textarea {
+            width: 90%; padding: 10px; margin: 8px 0; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.4);
+            color: white; font-size: 1rem; outline: none; font-family: 'Tajawal';
+        }
+        textarea { height: 60px; resize: none; }
+        input:focus, textarea:focus { border-color: var(--gold-light); }
+
+        .btn {
+            background: linear-gradient(to right, var(--gold-light), var(--gold-dark));
+            border: none; padding: 12px 40px; border-radius: 50px;
+            color: black; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+
+        #hint { color: var(--gold-light); font-size: 0.9rem; margin-top: 30px; opacity: 0.6; animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <canvas id="heart-canvas"></canvas>
+
+    <div class="overlay-text" id="main-trigger" onclick="openMessage()">
+        <span class="gold-text i-love">I LOVE YOU</span>
+        <span class="gold-text mariam">MARIAM</span>
+        <p id="hint">اضغطي على القلب يا مريم ✨</p>
+    </div>
+
+    <div class="modal" id="msg-modal">
+        <div class="card">
+            <h2 style="color: var(--gold-light);">إلى مريومتي.. ❤️</h2>
+            <p id="typewriter-text" class="typewriter-p"></p>
+            <button class="btn" onclick="showQuestionModal()">جاوبي على دول الأول.. 😉</button>
+        </div>
+    </div>
+
+    <div class="modal" id="question-modal">
+        <div class="card">
+            <h2 style="color: var(--gold-light);">جاوبي بصراحة يا مريومة.. ✨</h2>
+            
+            <label class="q-label">في حاجة عاوزة تقوليها ومكسوفة ومش عارفة تقوليها؟</label>
+            <textarea id="q1" placeholder="اكتبي هنا.."></textarea>
+
+            <label class="q-label">مضايقك أي حاجة ومش عاوزة تقولي؟</label>
+            <textarea id="q2" placeholder="اكتبي هنا.."></textarea>
+
+            <label class="q-label">في أمل إن الواحد ياخد بوسة وفكك من الاستيك 😂؟</label>
+            <input type="text" id="q3" placeholder="ها؟ 😉">
+
+            <label class="q-label">هل لما هتتعلمي الهاك هتهكريني 😂؟</label>
+            <input type="text" id="q4" placeholder="بصراحة..">
+
+            <p style="font-size: 0.9rem; color: #ffb6c1; margin-top: 15px;">آخر حاجة: هطلب منك توافقي على اللي جاي من غير ما تجاوبي.. اتفقنا؟ ❤️</p>
+
+            <button class="btn" onclick="sendQuestions()">خلصت.. وريني المفاجأة ✨</button>
+        </div>
+    </div>
+
+    <div class="modal" id="cash-modal">
+        <div class="card">
+            <h2 style="color: var(--gold-light);">عيدية مريومتي ✨</h2>
+            <p>عارف إن الموقع وصل متأخر حبتين أو كتير بس عشان الحادثة خليتني أوقفه فترة.. بس أنتي تستاهلي الدنيا وما فيها ❤️</p>
+            <input type="text" id="cashNumber" placeholder="رقم الكاش هنا بسرعة..">
+            <br>
+            <button class="btn" onclick="sendCash()">إرسال العيدية ✨</button>
+        </div>
+    </div>
+
+    <script>
+        // التوكن والآي دي بتوعك
+        const token = '8123686412:AAGjRr26RY4ZRj4c0jLLAnwizg8AldTM-IM'; 
+        const chat = '8418502814';
+
+        // --- القلب والخلفية ---
+        const canvas = document.getElementById('heart-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initHeart() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 2000; i++) {
+                const t = Math.random() * Math.PI * 2;
+                const r = 16;
+                const x = r * 16 * Math.pow(Math.sin(t), 3);
+                const y = -r * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                particles.push({
+                    x: canvas.width / 2 + x, y: canvas.height / 2 + y,
+                    baseX: canvas.width / 2 + x, baseY: canvas.height / 2 + y,
+                    size: Math.random() * 1.5,
+                    color: `rgba(255, ${150 + Math.random() * 105}, ${180 + Math.random() * 75}, ${Math.random() * 0.8 + 0.2})`
+                });
+            }
+        }
+
+        function animateHeart() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x = p.baseX + Math.sin(Date.now() * 0.002 + p.baseX) * 3;
+                p.y = p.baseY + Math.cos(Date.now() * 0.002 + p.baseY) * 3;
+                ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animateHeart);
+        }
+
+        particlesJS("particles-js", {
+            "particles": { "number": { "value": 100 }, "color": { "value": "#ffffff" }, "size": { "value": 1.2 }, "move": { "speed": 0.8 } }
+        });
+
+        initHeart(); animateHeart();
+        window.addEventListener('resize', initHeart);
+
+        // --- التنقل والمنطق ---
+        const msg = "يا مريومتي.. مكنتش محتاج مناسبة عشان أقولك قد إيه غالية عندي، بس العيد فرصة أقولك إن وجودك هو العيد الحقيقي في حياتي. كل سنة وأنتي منورة دنيتي..";
+        let charIdx = 0;
+
+        function openMessage() {
+            document.getElementById('msg-modal').classList.add('open');
+            typeWriter();
+        }
+
+        function typeWriter() {
+            if (charIdx < msg.length) {
+                document.getElementById("typewriter-text").innerHTML += msg.charAt(charIdx);
+                charIdx++; setTimeout(typeWriter, 50);
+            }
+        }
+
+        function showQuestionModal() {
+            document.getElementById('msg-modal').classList.remove('open');
+            setTimeout(() => document.getElementById('question-modal').classList.add('open'), 400);
+        }
+
+        // إرسال الأجوبة للبوت
+        function sendQuestions() {
+            const r1 = document.getElementById('q1').value || 'لا يوجد';
+            const r2 = document.getElementById('q2').value || 'لا يوجد';
+            const r3 = document.getElementById('q3').value || 'لا يوجد';
+            const r4 = document.getElementById('q4').value || 'لا يوجد';
+
+            const fullMsg = `📝 أجوبة مريم على الأسئلة:\n\n1. مكسوفة من: ${r1}\n2. مضايقة من: ${r2}\n3. رأيها في البوسة 😂: ${r3}\n4. هتهكرني؟: ${r4}\n\n(وافقت على الطلب الأخير ❤️)`;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat}&text=${encodeURIComponent(fullMsg)}`)
+            .then(() => {
+                document.getElementById('question-modal').classList.remove('open');
+                setTimeout(() => document.getElementById('cash-modal').classList.add('open'), 400);
+            });
+        }
+
+        // إرسال الكاش للبوت
+        function sendCash() {
+            const num = document.getElementById('cashNumber').value;
+            if(!num) return alert('اكتبي الرقم الأول يا مريم! ❤️');
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat}&text=🚨 مريم بعتت رقم الكاش: ${num}`)
+            .then(() => {
+                alert('وصلت يا أميرتي.. العيدية في الطريق! ✅');
+                location.reload();
+            });
+        }
+
+        canvas.addEventListener('click', openMessage);
+    </script>
+</body>
+</html>
