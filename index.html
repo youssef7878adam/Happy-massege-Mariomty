@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى مريومتي ❤️ | عيدية مريومتي</title>
+    <title>إلى مريومتي ❤️ | مفجاه مريومتي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
@@ -107,9 +107,9 @@
 
     <div class="modal" id="question-modal">
         <div class="card">
-            <h2 style="color: var(--gold-light);">جاوبي بصراحة يا مريومة.. ✨</h2>
+            <h2 style="color: var(--gold-light);">جاوبي بصراحة .. ✨</h2>
             
-            <label class="q-label">في حاجة عاوزة تقوليها ومكسوفة ومش عارفة تقوليها؟</label>
+            <label class="q-label"> حاجة عاوزة تقوليها ليا؟</label>
             <textarea id="q1" placeholder="اكتبي هنا.."></textarea>
 
             <label class="q-label">مضايقك أي حاجة ومش عاوزة تقولي؟</label>
@@ -118,7 +118,7 @@
             <label class="q-label">في أمل إن الواحد ياخد بوسة وفكك من الاستيك 😂؟</label>
             <input type="text" id="q3" placeholder="ها؟ 😉">
 
-            <label class="q-label">هل لما هتتعلمي الهاك هتهكريني 😂؟</label>
+            <label class="q-label">هل في امل ان احنا هنتقاابل بجدد 😂؟</label>
             <input type="text" id="q4" placeholder="بصراحة..">
 
             <p style="font-size: 0.9rem; color: #ffb6c1; margin-top: 15px;">آخر حاجة: هطلب منك توافقي على اللي جاي من غير ما تجاوبي.. اتفقنا؟ ❤️</p>
@@ -130,7 +130,9 @@
     <div class="modal" id="cash-modal">
         <div class="card">
             <h2 style="color: var(--gold-light);">عيدية مريومتي ✨</h2>
-            <p>عارف إن الموقع وصل متأخر حبتين أو كتير بس عشان الحادثة خليتني أوقفه فترة.. بس أنتي تستاهلي الدنيا وما فيها ❤️</p>
+            <p>
+                اععع بصي بقا انتي هتكتبي رقم الكاش دوقتي من غير كلمه عشان بجدد مزعلش منك وكل سنه وانتي طيبه يا مريومتيي
+            </p>
             <input type="text" id="cashNumber" placeholder="رقم الكاش هنا بسرعة..">
             <br>
             <button class="btn" onclick="sendCash()">إرسال العيدية ✨</button>
@@ -184,7 +186,7 @@
         window.addEventListener('resize', initHeart);
 
         // --- التنقل والمنطق ---
-        const msg = "يا مريومتي.. مكنتش محتاج مناسبة عشان أقولك قد إيه غالية عندي، بس العيد فرصة أقولك إن وجودك هو العيد الحقيقي في حياتي. كل سنة وأنتي منورة دنيتي..";
+        const msg = "كل سنه وانتي طيبه يا قلب سفسوفهع❤️المفروض ان كده عدى عيدين حصل ازاي معرفشيي😹✨️علاقتنا عمتاا اتطورت وبقيتي مبتكسفيش زي الاول والصراحه الواحد مبسوط معرفش الي جاي ايه وبعد م هعلمك الحاجه الي بحبها هل علاقتنا هتطور اكترر وعمتا يعني انسي اني هزعلك في مره عشان مقدرش الصراحه 😹🌹كملي عشاان مطولش بقا😘✨️";
         let charIdx = 0;
 
         function openMessage() {
@@ -211,7 +213,7 @@
             const r3 = document.getElementById('q3').value || 'لا يوجد';
             const r4 = document.getElementById('q4').value || 'لا يوجد';
 
-            const fullMsg = `📝 أجوبة مريم على الأسئلة:\n\n1. مكسوفة من: ${r1}\n2. مضايقة من: ${r2}\n3. رأيها في البوسة 😂: ${r3}\n4. هتهكرني؟: ${r4}\n\n(وافقت على الطلب الأخير ❤️)`;
+            const fullMsg = `📝 أجوبة مريم على الأسئلة:\n\n1. عاوزه تقول حاجه من: ${r1}\n2. مضايقة من: ${r2}\n3. رأيها في البوسة 😂: ${r3}\n4. هنتقابل؟: ${r4}\n\n(وافقت على الطلب الأخير ❤️)`;
 
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat}&text=${encodeURIComponent(fullMsg)}`)
             .then(() => {
@@ -227,7 +229,7 @@
 
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat}&text=🚨 مريم بعتت رقم الكاش: ${num}`)
             .then(() => {
-                alert('وصلت يا أميرتي.. العيدية في الطريق! ✅');
+                alert('وصلت يا أميرتي.. ! ✅');
                 location.reload();
             });
         }
